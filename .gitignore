@@ -1,0 +1,26 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual Environment (ОБОВ'ЯЗКОВО) ---
+venv/
+env/
+.env
+
+# --- Distribution / Installs ---
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# --- Mac OS (системні файли) ---
+.DS_Store
+
+# --- IDE Settings (налаштування редактора) ---
+.vscode/
+.idea/
+
+# --- Database (якщо раптом є локальні файли SQLite, хоча у вас MySQL) ---
+*.sqlite3
+*.db
