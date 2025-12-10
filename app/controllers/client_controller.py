@@ -9,6 +9,13 @@ service = ClientService()
 def get_clients():
     return jsonify(service.get_all_clients())
 
+# Маршрут для отримання одного клієнта за ID
+@client_bp.route('/clients/<int:id>', methods=['GET'])
+def get_client_by_id(id):
+    data = service.get_by_id(id)
+    if data: return jsonify(data)
+    return jsonify({"message": "Client not found"}), 404
+
 # 2. Створити нового (POST)
 @client_bp.route('/clients', methods=['POST'])
 def create_client():
@@ -38,3 +45,9 @@ def get_client_with_fields(id):
     if data:
         return jsonify(data)
     return jsonify({"message": "Client not found"}), 404
+
+@client_bp.route('/clients/bulk-sp', methods=['POST'])
+def bulk_insert_clients():
+    if service.dao.call_bulk_insert():
+        return jsonify({"message": "10 Clients inserted via SP"}), 201
+    return jsonify({"message": "Error"}), 400

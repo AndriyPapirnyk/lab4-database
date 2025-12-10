@@ -1,5 +1,5 @@
 from flask import Flask
-
+# Імпорт усіх 11 контролерів
 from app.controllers.client_controller import client_bp
 from app.controllers.field_controller import field_bp
 from app.controllers.user_account_controller import user_bp
@@ -10,10 +10,12 @@ from app.controllers.irrigation_controller import irrigation_bp
 from app.controllers.sensor_controller import sensor_bp
 from app.controllers.sensor_data_controller import sensor_data_bp
 from app.controllers.sprinkler_controller import sprinkler_bp
+from app.controllers.field_sensor_placement_controller import placement_bp # НОВА ТАБЛИЦЯ
 
 def create_app():
     app = Flask(__name__)
     
+    # Реєстрація всіх Blueprints
     app.register_blueprint(client_bp)
     app.register_blueprint(field_bp)
     app.register_blueprint(user_bp)
@@ -24,5 +26,6 @@ def create_app():
     app.register_blueprint(sensor_bp)
     app.register_blueprint(sensor_data_bp)
     app.register_blueprint(sprinkler_bp)
+    app.register_blueprint(placement_bp) # РЕЄСТРАЦІЯ M:M
     
     return app

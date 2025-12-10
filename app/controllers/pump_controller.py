@@ -36,3 +36,10 @@ def delete_pump(id):
     if service.delete(id):
         return jsonify({"message": "Pump deleted"})
     return jsonify({"message": "Error deleting pump"}), 400
+
+@pump_bp.route('/pumps/sp-insert', methods=['POST'])
+def create_pump_via_sp():
+    data = request.json
+    if service.dao.call_insert_procedure(data['field_id'], data['model'], data['max_flow']):
+        return jsonify({"message": "Pump created via Stored Procedure"}), 201
+    return jsonify({"message": "Error creating pump (check trigger constraints?)"}), 400

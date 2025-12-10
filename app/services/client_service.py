@@ -9,8 +9,11 @@ class ClientService:
         clients = self.dao.get_all()
         return [client.to_dict() for client in clients]
 
+    def get_by_id(self, client_id):
+        client = self.dao.get_by_id(client_id)
+        return client.to_dict() if client else None
+
     def create_client(self, data):
-        # Тут можна додати валідацію, наприклад, чи є '@' в email
         if '@' not in data.get('email', ''):
             return False
             

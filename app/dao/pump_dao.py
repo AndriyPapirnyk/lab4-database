@@ -42,3 +42,17 @@ class PumpDAO:
             conn.commit(); return cursor.rowcount > 0
         except: return False
         finally: cursor.close(); conn.close()
+
+    def call_insert_procedure(self, field_id, model, max_flow):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.callproc('InsertNewPump', [field_id, model, max_flow])
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Procedure Error: {e}")
+            return False
+        finally:
+            cursor.close()
+            conn.close()

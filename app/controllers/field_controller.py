@@ -34,3 +34,18 @@ def get_field_sensors(id):
     if data:
         return jsonify(data)
     return jsonify({"message": "Field not found"}), 404
+
+# 2.d. Маршрут для статистики
+@field_bp.route('/fields/stats', methods=['GET'])
+def get_field_stats():
+    op = request.args.get('op', 'AVG') # За замовчуванням AVG
+    result = service.dao.get_stats(op)
+    if result: return jsonify(result)
+    return jsonify({"message": "Error calculating stats"}), 400
+
+# 2.e. Маршрут для запуску курсора
+@field_bp.route('/fields/cursor-split', methods=['POST'])
+def run_cursor():
+    if service.dao.run_cursor_split():
+        return jsonify({"message": "Cursor executed. Dynamic tables created."}), 201
+    return jsonify({"message": "Error running cursor"}), 400
